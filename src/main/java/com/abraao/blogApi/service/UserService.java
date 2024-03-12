@@ -19,8 +19,15 @@ public class UserService {
 
     public User createUser(UserDTO userDTO){
         User newUser = new User(userDTO);
+        if (newUser.getEmail().compareTo("") == 0 || newUser.getName().compareTo("") == 0 || newUser.getPassword().compareTo("") == 0) {
+            throw new IllegalArgumentException("Email, name and password cannot be empty");
+        }
         this.userRepository.save(newUser);
         return newUser;
+    }
+
+    public User getUserById(Long id){
+        return this.userRepository.findById(id).get();
     }
 
 }
