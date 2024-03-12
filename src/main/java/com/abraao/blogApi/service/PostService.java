@@ -5,6 +5,7 @@ import com.abraao.blogApi.model.Post;
 import com.abraao.blogApi.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.abraao.blogApi.repository.PostRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ public class PostService {
     @Autowired
     PostRepository postRepository;
 
+    @Lazy
     @Autowired
     UserService userService;
 
@@ -52,5 +54,9 @@ public class PostService {
         post.setTitle(postDTO.title());
         post.setContent(postDTO.content());
         return this.postRepository.save(post);
+    }
+
+    public List<Post> getPostsByUserId(Long userId){
+        return this.postRepository.findByUserId(userId);
     }
 }
