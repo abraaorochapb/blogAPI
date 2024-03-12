@@ -22,10 +22,29 @@ public class PostController {
         return new ResponseEntity<>(postService.getAllPosts(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id){
+        return new ResponseEntity<>(postService.getPostById(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody PostDTO postDTO){
         Post newPost = postService.createPost(postDTO);
         return new ResponseEntity<>(newPost, HttpStatus.CREATED);
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Post> updatePostById(@PathVariable Long id, @RequestBody PostDTO postDTO){
+        Post updatedPost = postService.updatePostById(id, postDTO);
+        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePostById(@PathVariable Long id){
+        postService.deletePostById(id);
+        return new ResponseEntity<>("Post deleted successfully", HttpStatus.OK);
     }
 
 }

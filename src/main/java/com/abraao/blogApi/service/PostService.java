@@ -38,4 +38,19 @@ public class PostService {
 
         return postRepository.save(newPost);
     }
+
+    public Post getPostById(Long id){
+        return this.postRepository.findById(id).get();
+    }
+
+    public void deletePostById(Long id){
+        this.postRepository.deleteById(id);
+    }
+
+    public Post updatePostById(Long id, PostDTO postDTO){
+        Post post = this.getPostById(id);
+        post.setTitle(postDTO.title());
+        post.setContent(postDTO.content());
+        return this.postRepository.save(post);
+    }
 }
